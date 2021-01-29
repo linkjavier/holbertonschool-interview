@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" Stats Generator Module"""
 import sys
 
 ResponsesCounter = {"200": 0, "301": 0, "400": 0, "401": 0,
