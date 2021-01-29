@@ -1,28 +1,43 @@
 #!/usr/bin/python3
-import sys 
-  
-responses = [200, 301, 400, 401, 403, 404, 405, 500]
-responsesCounter = [0, 0, 0, 0, 0, 0, 0, 0]
-TenCounter = 0
-TotalSize = 0
+import sys
 
-for line in sys.stdin:
-    if TenCounter != 10:
-        SplitedLine = line.split()[-2:]
-        TotalSize += int(SplitedLine[1])
-        
-        if int(SplitedLine[0]) in responses:
-            responsesCounter[responses.index(int(SplitedLine[0]))] += 1
-    
-    else:
-        print(f'File size: {TotalSize}')
-        for element in responses:
-            print("{}: {}".format(element, responsesCounter[responses.index(int(element))]))
+ResponsesCounter = {"200": 0, "301": 0, "400": 0, "401": 0,
+                    "403": 0, "404": 0, "405": 0, "500": 0}
+counter = 0
 
 
+def ShowStats():
+    """
+        Auxiliar function to Show Stats
+    """
+    global counter
+    print('File size: {}'.format(counter))
+    ResponsesCounteror = sorted(ResponsesCounter.keys())
+    for each in ResponsesCounteror:
+        if ResponsesCounter[each] > 0:
+            print('{}: {}'.format(each, ResponsesCounter[each]))
 
-else:
-    responsesCounter = [0, 0, 0, 0, 0, 0, 0, 0]
+
+if __name__ == "__main__":
+
     TenCounter = 0
-    TotalSize = 0
 
+    try:
+        for data in sys.stdin:
+            try:
+                SplittedLine = data.split(' ')
+                if SplittedLine[-2] in ResponsesCounter:
+                    ResponsesCounter[SplittedLine[-2]] += 1
+                counter += int(SplittedLine[-1])
+            except BaseException:
+                pass
+            TenCounter += 1
+            if TenCounter == 10:
+                ShowStats()
+                TenCounter = 0
+
+    except KeyboardInterrupt:
+        ShowStats()
+        raise
+    else:
+        ShowStats()
