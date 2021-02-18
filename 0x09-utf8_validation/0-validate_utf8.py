@@ -6,25 +6,21 @@ def validUTF8(data):
     """ Method that determines if a given data set
         represents a valid UTF-8 encoding
     """
+
     Checker = 0
-
     for element in data:
-        if 191 >= element >= 128:
-            if not Checker:
-                return False
-            Checker -= 1
-        else:
-            if Checker:
-                return False
-            if element < 128:
+        BinaryElement = format(element, '#010b')[-8:]
+        if Checker == 0:
+            for unit in BinaryElement:
+                if unit == '0':
+                    break
+                Checker += 1
+            if Checker == 0:
                 continue
-            elif element < 224:
-                Checker = 1
-            elif element < 240:
-                Checker = 2
-            elif element < 248:
-                Checker = 3
-            else:
+            if Checker == 1 or Checker > 4:
                 return False
-
+        else:
+            if not (BinaryElement[0] == '1' and BinaryElement[1] == '0'):
+                return False
+        Checker -= 1
     return Checker == 0
