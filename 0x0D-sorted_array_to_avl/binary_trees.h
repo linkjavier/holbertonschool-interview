@@ -25,12 +25,10 @@ struct binary_tree_s
 typedef struct binary_tree_s binary_tree_t;
 typedef struct binary_tree_s avl_t;
 
-void binary_tree_print(const binary_tree_t *);
 binary_tree_t *newNode(binary_tree_t *parent, int value);
-
-avl_t *splice_array(int *array, size_t start, size_t end, avl_t *parent);
-
+avl_t *arrayToAvl(int *array, size_t init, size_t final, avl_t *parent);
 avl_t *sorted_array_to_avl(int *array, size_t size);
+
 void binary_tree_print(const binary_tree_t *tree);
 
 #endif /** BINARY_TREES_H */
