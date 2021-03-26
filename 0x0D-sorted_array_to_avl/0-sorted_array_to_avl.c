@@ -1,74 +1,60 @@
 #include "binary_trees.h"
+/**
+ * sorted_array_to_avl - Function that builds an AVL tree from an array
+ * @array: Address to Array
+ * @size: Size of the Array
+ * Return: Address to main node
+ */
+avl_t *sorted_array_to_avl(int *array, size_t size)
+{
+	avl_t *main = NULL;
+
+	if (array == NULL)
+		return (NULL);
+
+	if (allocateAvlNode(array, 0, (int)size - 1, &main) == NULL)
+		return (NULL);
+	return (main);
+}
 
 /**
- * newNode - Creates a allocated binary tree node
- * @parent: Main node
- * @value: Value of New Node
- * Return: New node
+ * allocateAvlNode - Allocate New AVL Node
+ * @array: Address to Array
+ * @init: Start position
+ * @end: End Position
+ * @main: Address to AVL Main node
+ * Return: Main
  */
-
-binary_tree_t *newNode(binary_tree_t *parent, int value)
+avl_t *allocateAvlNode(int *array, int init, int end, avl_t **main)
 {
-	binary_tree_t *allocatedNode;
+	avl_t *allocatedNode = NULL;
+	avl_t *left = NULL;
+	avl_t *right = NULL;
+	int halfArray;
 
-	allocatedNode = malloc(sizeof(binary_tree_t));
+	if (init > end)
+		return (NULL);
+
+	halfArray = (end + init) / 2;
+
+	allocateAvlNode(array, init, halfArray - 1, &left);
+	allocateAvlNode(array, halfArray + 1, end, &right);
+
+	allocatedNode = malloc(sizeof(avl_t));
 	if (allocatedNode == NULL)
 		return (NULL);
 
-	allocatedNode->left = NULL;
-	allocatedNode->right = NULL;
-	allocatedNode->n = value;
-	allocatedNode->parent = parent;
+	allocatedNode->n = array[halfArray];
+	allocatedNode->parent = NULL;
+	allocatedNode->left = left;
+	allocatedNode->right = right;
 
+	if (left != NULL)
+		left->parent = allocatedNode;
+
+	if (right != NULL)
+		right->parent = allocatedNode;
+
+	*main = allocatedNode;
 	return (allocatedNode);
-}
-
-/**
- * arrayToAvl - builds an AVL tree from an array
- * @array: Given Array
- * @init: Start of array
- * @final: End of array
- * @parent: Main node
- * Return: Pointer to Main node
- */
-
-avl_t *arrayToAvl(int *array, size_t init, size_t final, avl_t *parent)
-{
-	avl_t *main;
-	size_t half;
-
-	half = (init + final) / 2;
-	main = newNode(parent, array[half]);
-
-	if (main == NULL)
-		return (NULL);
-
-	if (init > final)
-		return (NULL);
-
-	if (half != init)
-		main->left = arrayToAvl(array, init, half - 1, main);
-
-	if (half != final)
-		main->right = arrayToAvl(array, half + 1, final, main);
-
-	return (main);
-}
-/**
- * sorted_array_to_avl - builds an AVL tree from an array
- * @array: array to be converted
- * @size: number of elements in the array
- * Return: main node
- */
-
-avl_t *sorted_array_to_avl(int *array, size_t size)
-{
-	avl_t *main;
-
-	if (array == NULL || size == 0)
-		return (NULL);
-
-	main = arrayToAvl(array, 0, size - 1, NULL);
-
-	return (main);
 }
