@@ -1,10 +1,8 @@
-#ifndef BINARY_TREES_H
-#define BINARY_TREES_H
+#ifndef BINARY_TREES
+#define BINARY_TREES
 
-#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
 /**
  * struct binary_tree_s - Binary tree node
@@ -30,4 +28,4 @@ avl_t *sorted_array_to_avl(int *array, size_t size);
 avl_t *allocateAvlNode(int *array, int init, int end, avl_t **main);
 void binary_tree_print(const binary_tree_t *);
 
-#endif /** BINARY_TREES_H */
+#endif
