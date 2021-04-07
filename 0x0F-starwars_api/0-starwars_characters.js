@@ -13,14 +13,12 @@ function asyncRequest (url) {
 
 async function getCharactersOfFilm () {
   try {
-    const body = await asyncRequest(reqFilm);
-    const FilmRequestBody = body;
+    const FilmRequestBody = await asyncRequest(reqFilm);
     const FilmsObject = JSON.parse(FilmRequestBody);
     const FilmCharacters = FilmsObject.characters;
 
     for (const k in FilmCharacters) {
-      const body = await asyncRequest(FilmCharacters[k]);
-      const CharacterRequestBody = body;
+      const CharacterRequestBody = await asyncRequest(FilmCharacters[k]);
       const CharactersObject = JSON.parse(CharacterRequestBody);
       console.log(CharactersObject.name);
     }
