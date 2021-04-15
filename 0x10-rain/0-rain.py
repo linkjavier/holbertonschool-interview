@@ -12,7 +12,7 @@ def rain(walls):
     rainwater = 0
     i = 0
     for i in range(i, n - 1):
-        if (walls[i] != 0):
+        if (walls[i] > 0):
             rainwater = rainwater + walls[i]
 
     return rainwater
