@@ -21,6 +21,10 @@ def rain(walls):
         if (walls[j] > 0):
             leftWallIndex = j
             break
+
+    if (rigthWallIndex == leftWallIndex):
+        return 0
+
     for k in range(rigthWallIndex, leftWallIndex):
         if (walls[k] > 0):
             rainwater = rainwater + walls[k]
