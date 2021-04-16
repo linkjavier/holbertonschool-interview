@@ -13,20 +13,23 @@ def rain(walls):
     # leftWallIndex = 0
     rainwater = 0
 
-    for i in range(0, n):
-        if (walls[i] > 0):
-            rigthWallIndex = i
-            break
-    for j in reversed(range(0, n)):
-        if (walls[j] > 0):
-            leftWallIndex = j
-            break
+    for i in range(1, n - 1):
+        # if (walls[i] > 0):
+        #     rigthWallIndex = i
+        #     break
+        leftWallIndex = walls[i]
+        for j in range(i):
+            leftWallIndex = max(leftWallIndex, walls[j])
+            # if (walls[j] > 0):
+            #     leftWallIndex = j
+            #     break
+        rigthWallIndex = walls[i]
 
-    if (rigthWallIndex == leftWallIndex):
-        return 0
-
-    for k in range(rigthWallIndex, leftWallIndex):
-        if (walls[k] > 0):
-            rainwater = rainwater + walls[k]
+        for k in range(i + 1, n):
+            rigthWallIndex = max(rigthWallIndex, walls[k])
+            # if (walls[j] > 0):
+            #     leftWallIndex = j
+            #     break
+        rainwater += min(leftWallIndex, rigthWallIndex) - walls[i]
 
     return rainwater
