@@ -9,10 +9,20 @@ def rain(walls):
     if n == 0:
         return 0
 
+    # rigthWallIndex = 0
+    # leftWallIndex = 0
     rainwater = 0
-    i = 0
-    for i in range(i, n - 1):
+
+    for i in range(0, n):
         if (walls[i] > 0):
-            rainwater = rainwater + walls[i]
+            rigthWallIndex = i
+            break
+    for j in reversed(range(0, n)):
+        if (walls[j] > 0):
+            leftWallIndex = j
+            break
+    for k in range(rigthWallIndex, leftWallIndex):
+        if (walls[k] > 0):
+            rainwater = rainwater + walls[k]
 
     return rainwater
