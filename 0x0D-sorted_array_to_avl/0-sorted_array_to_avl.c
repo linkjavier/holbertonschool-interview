@@ -7,14 +7,14 @@
  */
 avl_t *sorted_array_to_avl(int *array, size_t size)
 {
-	avl_t *main = NULL;
+	avl_t *first = NULL;
 
 	if (array == NULL)
 		return (NULL);
 
-	if (allocateAvlNode(array, 0, (int)size - 1, &main) == NULL)
+	if (allocateAvlNode(array, 0, (int)size - 1, &first) == NULL)
 		return (NULL);
-	return (main);
+	return (first);
 }
 
 /**
