@@ -7,16 +7,12 @@ def pascal_triangle(n):
         representing the Pascal’s triangle of n """
 
     pascal = []
-    if n == 1:
-        return [1]
 
-    else:
-        for i in range(n):
-            newElement = [1]
-            if pascal:
-                last = pascal[-1]
-                newElement.extend([sum(pair) for pair in zip(last, last[1:])])
-                newElement.append(1)
-            pascal.append(newElement)
-
-    return(pascal)
+    for i in range(n):
+        actualNumber = [None for _ in range(i + 1)]
+        actualNumber[0], actualNumber[-1] = 1, 1
+        for j in range(1, len(actualNumber) - 1):
+            actualNumber[j] = pascal[i - 1][j - 1] + pascal[i - 1][j]
+        pascal.append(actualNumber)
+    
+    return pascal
