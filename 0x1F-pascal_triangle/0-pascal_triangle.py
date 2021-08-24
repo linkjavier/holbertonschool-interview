@@ -14,5 +14,5 @@ def pascal_triangle(n):
         for j in range(1, len(actualNumber) - 1):
             actualNumber[j] = pascal[i - 1][j - 1] + pascal[i - 1][j]
         pascal.append(actualNumber)
-    
+
     return pascal
